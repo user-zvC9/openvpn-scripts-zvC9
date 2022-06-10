@@ -1,7 +1,9 @@
 # openvpn-scripts-zvC9
-Amateur scripts to setup openvpn with generation of keys (ED25519), CSRs, CERTs, configs and dhparam(s).
 
 These scripts and usage instruction were created by an amateur. Don't use them until you check that they are suitable and secure.
+
+These are amateur scripts to setup OpenVPN with TLS for Linux. Scripts generate keys (ED25519), CSRs, CERTs, configs and dhparam(s).
+(these scripts don't install OpenVPN/OpenSSL and don't work under Windows. But if you can copy secret files securely from Linux to Windows (like if you are running Linux inside a VirtualMachine under Windows and have shared folders or SSH access from Win to Linux (use OpenSSH-server, PuTTY,  VirtualBOX, QEmu, ...) configured; or like if you have Windows VirtualMachine running under Linux (use brasero or k3b or xorrisofs to create .iso file with secret files and with other files; use QEmu/VirtualBox/... to run VirtualMachine with Windows; attach that .iso file to VirtualMachine)), you can use these scripts for Windows (may be, also need to change extension of .conf files to .ovpn))
 
 ed25519 keys are used
 
@@ -13,14 +15,14 @@ Note: where you are going to type "${netname}", type value of variable "netname"
 you have set in "bashlib/openvpn-openssl-vars.bash". If it's set to "mytestnet1",
 string "${netname}" becomes "mytestnet1".
 
-What to do:
+What to do (how to use scripts):
 - Edit "bashlib/openvpn-openssl-vars.bash"
 - Copy whole project directory "openvpn-scripts-zvC9" with edited
   "openvpn-scripts-zvC9/bashlib/openvpn-openssl-vars.bash"
-  to client, server, CA.
+  to client, server, CA (easier to use CA=server or CA=client).
 - On client and on server launch  "generate-openvpn-configs.bash"
 - On client launch "client-generate-openvpn-client-key-and-CSR.bash"
-- On server launch "server-generate-openvpn-server-key-and-CSR-and-dhparam.bash"
+- On server launch "server-generate-openvpn-server-key-and-CSR-and-dhparam.bash" (this is going to take long time)
 - On CA, launch "CA-generate-openvpn-CAkey.bash"
 - copy from client "created_files_for_use/client/generated/${netname}/${netname}-tls-client.csr.pem" into same directory on CA
 - copy from server "created_files_for_use/server/generated/${netname}/${netname}-tls-server.csr.pem" into same directory on CA
@@ -46,3 +48,5 @@ Note: can manually launch openvpn this way:
   server: "openvpn --config /etc/openvpn/${netname}-tls-server.conf",
   client: "openvpn --config /etc/openvpn/${netname}-tls-client.conf",
  don't forget to set "netname" variable as it is set in "bashlib/openvpn-openssl-vars.bash"
+
+
