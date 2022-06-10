@@ -19,7 +19,7 @@ What to do:
 2. On client launch "client-generate-openvpn-client-key-and-CSR.bash"
 3. On server launch "server-generate-openvpn-server-key-and-CSR-and-dhparam.bash"
 4. On CA, launch "CA-generate-openvpn-CAkey.bash"
-5. copy from client "created_files_for_use/client/generated/\${netname}/${netname}-tls-client.csr.pem" into same directory on CA
+5. copy from client "created_files_for_use/client/generated/\$\{netname\}/\$\{netname\}-tls-client.csr.pem" into same directory on CA
 6. copy from server "created_files_for_use/server/generated/\${netname}/${netname}-tls-server.csr.pem" into same directory on CA
 7. launch "CA-sign-CSRs.bash" on CA
 8. from CA copy file "created_files_for_use/client/generated/${netname}/${netname}-tls-client.ca-signed.cert.pem" to same directory on client
