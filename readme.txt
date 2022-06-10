@@ -44,12 +44,12 @@ What to do (how to use scripts):
 - On client, copy "created_files_for_use/client/${netname}-tls-client.conf" into "/etc/openvpn/"
 - On server, if you are using systemd init system, run in bash as root
   "systemctl enable openvpn@${netname}-tls-server", where variable "netname" has value which
-  you configured in "bashlib/openvpn-openssl-vars.bas"
-Note: you can run "source bashlib/openvpn-openssl-vars.bas" in bash to set variables.
+  you configured in "bashlib/openvpn-openssl-vars.bash"
+Note: you can run "source bashlib/openvpn-openssl-vars.bash" in bash to set variables.
 - On client, if you are using systemd init system, run in bash as root
   "systemctl enable openvpn@${netname}-tls-client", where variable "netname" has value which
-  you configured in "bashlib/openvpn-openssl-vars.bas"
-Note: you can run "source bashlib/openvpn-openssl-vars.bas" in bash to set variables.
+  you configured in "bashlib/openvpn-openssl-vars.bash"
+Note: you can run "source bashlib/openvpn-openssl-vars.bash" in bash to set variables.
 - If you are using non-systemd init system, find other way to configure openvpn to start on boot.
 - Reboot to launch openvpn or use terminal to launch it (with systemd can do this:
   "systemctl start openvpn@${netname}-tls-server" on server,
@@ -69,7 +69,7 @@ Note: can manually launch openvpn this way:
 
 
 
-------------------CUT----HERE----------------------------------
+---------------------------------CUT----HERE----------------------------------
 (don't read next unless you want to use under Windows)
 (if you can copy secret files securely from Linux to Windows (like if you are running
 Linux inside a VirtualMachine under Windows and have shared folders or SSH access
