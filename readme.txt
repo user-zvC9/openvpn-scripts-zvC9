@@ -1,6 +1,3 @@
-# openvpn-scripts-zvC9
-Amateur scripts to setup openvpn with key,s CSRs, CERTs, configs generation
-
 These scripts and usage instruction were created by an amateur. Don't use them until you check that they are suitable and secure.
 
 ed25519 keys are used
@@ -42,4 +39,3 @@ Note: can manually launch openvpn this way:
   server: "openvpn --config /etc/openvpn/${netname}-tls-server.conf",
   client: "openvpn --config /etc/openvpn/${netname}-tls-client.conf",
  don't forget to set "netname" variable as it is set in "bashlib/openvpn-openssl-vars.bash"
- 
