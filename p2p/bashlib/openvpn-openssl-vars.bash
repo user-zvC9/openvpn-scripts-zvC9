@@ -29,7 +29,7 @@ server_public_ip="192.168.1.100"
 
 server_udp_port="12005"
 
-function error {
+function error { # error msg code, error msg, error
  if [ $# -ge 2 ] ; then
   echo "$1"
   exit $2
@@ -38,6 +38,22 @@ function error {
    echo "$1"
    exit 1
   else
+   exit 1
+  fi
+ fi
+}
+
+function zvC9-error { # zvC9-error code msg, error msg, error
+ echo -n "Error (aborting): "
+ if [ $# -ge 2 ] ; then
+  echo "$2"
+  exit $1
+ else
+  if [ $# -ge 1 ] ; then
+   echo "$1"
+   exit 1
+  else
+   echo
    exit 1
   fi
  fi

@@ -24,11 +24,13 @@ source bashlib/openvpn-openssl-vars.bash || exit 1
 	openssl x509 -req -CA "workdir/${netname}/${netname}-ca.selfsigned.cert.pem" -CAkey "workdir/${netname}/${netname}-ca.key.pem" \
 	-CAserial "workdir/${netname}/${netname}-ca.serial.srl" \
 	-CAcreateserial -out "created_files_for_use/server/generated/${netname}/${netname}-tls-server.ca-signed.cert.pem" -outform PEM \
-	-inform PEM -in "created_files_for_use/server/generated/${netname}/${netname}-tls-server.csr.pem" || error openssl 3
+	-inform PEM -in "created_files_for_use/server/generated/${netname}/${netname}-tls-server.csr.pem" \
+	-days $days || zvC9-error 3 openssl
 	
 	openssl x509 -req -CA "workdir/${netname}/${netname}-ca.selfsigned.cert.pem" -CAkey "workdir/${netname}/${netname}-ca.key.pem" \
 	-CAserial "workdir/${netname}/${netname}-ca.serial.srl" \
 	-CAcreateserial -out "created_files_for_use/client/generated/${netname}/${netname}-tls-client.ca-signed.cert.pem" -outform PEM \
-	-inform PEM -in "created_files_for_use/client/generated/${netname}/${netname}-tls-client.csr.pem" || error openssl 4
+	-inform PEM -in "created_files_for_use/client/generated/${netname}/${netname}-tls-client.csr.pem" 
+	-days $days || zvC9-error 4 openssl
 
 

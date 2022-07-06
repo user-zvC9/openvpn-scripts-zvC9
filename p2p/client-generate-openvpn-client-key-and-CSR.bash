@@ -11,17 +11,20 @@
 source bashlib/openvpn-openssl-vars.bash || exit 1
 
 
-mkdir -p "created_files_for_use/server/generated/${netname}" || exit 1
-pushd    "created_files_for_use/server/generated/${netname}" || exit 2
+mkdir -p "created_files_for_use/client/generated/${netname}" || exit 1
+pushd    "created_files_for_use/client/generated/${netname}" || exit 2
+
+
 
 
 # generate self-signed keys
- for name in  ${netname}-tls-server ; do
+ for name in  ${netname}-tls-client ; do
   echo -en "RU\\nState\\nCity\\nCompany\\nSection\\n${name}\\n\\n"\
   | openssl req -x509 -newkey ED25519 -nodes -outform PEM -out \
   ${name}.selfsigned.cert.pem -keyout ${name}.key.pem -keyform \
-  PEM -days ${days} # -newkey rsa:$bits
- done
+  PEM -days ${days} || zvC9-error 2 "generate self-signed key+cert"
+  # -newkey rsa:$bits
+ done 
 
 # Generating certificate signing request manually:
  #Country Name (2 letter code) [AU]:RU
@@ -38,13 +41,12 @@ pushd    "created_files_for_use/server/generated/${netname}" || exit 2
  #An optional company name []:
 
 # generate CSRs (certificate signing requests)
- for name in ${netname}-tls-server  ; do
+ for name in ${netname}-tls-client ; do
   echo -en \
    "RU\\nState\\nCity\\nCompany\\nSection\\n${name}\\n\\n\\n\\n" |\
    openssl req -new -outform PEM -out ${name}.csr.pem -key \
-   ${name}.key.pem -keyform PEM
+   ${name}.key.pem -keyform PEM || zvC9-error 2 "generate CSR"
  done
 
-
-openssl dhparam -outform PEM -out ${netname}-dh.pem  $dhbits
+popd
 

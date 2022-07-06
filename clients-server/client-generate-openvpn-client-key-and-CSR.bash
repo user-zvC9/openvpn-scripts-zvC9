@@ -22,7 +22,8 @@ pushd    "created_files_for_use/client/generated/${netname}" || exit 2
   echo -en "RU\\nState\\nCity\\nCompany\\nSection\\n${name}\\n\\n"\
   | openssl req -x509 -newkey ED25519 -nodes -outform PEM -out \
   ${name}.selfsigned.cert.pem -keyout ${name}.key.pem -keyform \
-  PEM -days ${days} # -newkey rsa:$bits
+  PEM -days ${days} || zvC9-error 2 "generate self-signed key+cert"
+  # -newkey rsa:$bits
  done 
 
 # Generating certificate signing request manually:
@@ -44,7 +45,7 @@ pushd    "created_files_for_use/client/generated/${netname}" || exit 2
   echo -en \
    "RU\\nState\\nCity\\nCompany\\nSection\\n${name}\\n\\n\\n\\n" |\
    openssl req -new -outform PEM -out ${name}.csr.pem -key \
-   ${name}.key.pem -keyform PEM
+   ${name}.key.pem -keyform PEM || zvC9-error 2 "generate CSR"
  done
 
 popd

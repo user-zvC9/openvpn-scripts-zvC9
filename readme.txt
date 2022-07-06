@@ -38,6 +38,12 @@ What to do (how to use scripts):
   into same directory on client
 - from CA copy file "created_files_for_use/server/generated/${netname}/${netname}-tls-server.ca-signed.cert.pem"
   into same directory on server
+- from CA copy file "created_files_for_use/client/generated/${netname}/tls-auth-c1-s0.key" and file
+  "created_files_for_use/client/generated/${netname}/tls-auth-c0-s1.key"
+  into same directory on client
+- from CA copy file "created_files_for_use/server/generated/${netname}/tls-auth-c1-s0.key" and file
+  "created_files_for_use/server/generated/${netname}/tls-auth-c0-s1.key"
+  into same directory on server
 - On server, copy "created_files_for_use/server/generated/${netname}" into "/etc/openvpn/generated/"
 - On server, copy "created_files_for_use/server/${netname}-tls-server.conf" into "/etc/openvpn/"
 - On client, copy "created_files_for_use/client/generated/${netname}" into "/etc/openvpn/generated/"

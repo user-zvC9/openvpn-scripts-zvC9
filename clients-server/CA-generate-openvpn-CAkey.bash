@@ -33,9 +33,13 @@ pushd    "workdir/${netname}" || exit 2
 popd
 
 
-mkdir -p "created_files_for_use/client/generated/${netname}" || error "mkdir" 3
-mkdir -p "created_files_for_use/server/generated/${netname}" || error "mkdir" 4
-cp -fv "workdir/${netname}/${netname}-ca.selfsigned.cert.pem" "created_files_for_use/client/generated/${netname}/" || error cp 5
-cp -fv "workdir/${netname}/${netname}-ca.selfsigned.cert.pem" "created_files_for_use/server/generated/${netname}/" || error cp 6
+mkdir -p "created_files_for_use/client/generated/${netname}" || zvC9-error 3 "mkdir"
+mkdir -p "created_files_for_use/server/generated/${netname}" || zvC9-error 4 "mkdir"
+cp -fv "workdir/${netname}/${netname}-ca.selfsigned.cert.pem" "created_files_for_use/client/generated/${netname}/" || zvC9-error 5 cp
+cp -fv "workdir/${netname}/${netname}-ca.selfsigned.cert.pem" "created_files_for_use/server/generated/${netname}/" || zvC9-error 6 cp
 
+
+# generate keys for use with --tls-auth
+openvpn --genkey "created_files_for_use/client/generated/${netname}"/tls-auth-c1-s0.key
+openvpn --genkey "created_files_for_use/client/generated/${netname}"/tls-auth-c0-s1.key
 
