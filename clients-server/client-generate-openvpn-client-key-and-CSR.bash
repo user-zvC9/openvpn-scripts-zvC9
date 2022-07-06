@@ -19,7 +19,7 @@ pushd    "created_files_for_use/client/generated/${netname}" || exit 2
 
 # generate self-signed keys
  for name in  ${netname}-tls-client ; do
-  echo -en "RU\\nState\\nCity\\nCompany\\nSection\\n${name}\\n\\n"\
+  echo -en "RU\\nState\\nCity\\nCompany\\nSection\\n${client_cert_name}\\n\\n"\
   | openssl req -x509 -newkey ED25519 -nodes -outform PEM -out \
   ${name}.selfsigned.cert.pem -keyout ${name}.key.pem -keyform \
   PEM -days ${days} || zvC9-error 2 "generate self-signed key+cert"
@@ -43,7 +43,7 @@ pushd    "created_files_for_use/client/generated/${netname}" || exit 2
 # generate CSRs (certificate signing requests)
  for name in ${netname}-tls-client ; do
   echo -en \
-   "RU\\nState\\nCity\\nCompany\\nSection\\n${name}\\n\\n\\n\\n" |\
+   "RU\\nState\\nCity\\nCompany\\nSection\\n${client_cert_name}\\n\\n\\n\\n" |\
    openssl req -new -outform PEM -out ${name}.csr.pem -key \
    ${name}.key.pem -keyform PEM || zvC9-error 2 "generate CSR"
  done

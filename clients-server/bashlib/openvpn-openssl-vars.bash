@@ -28,6 +28,8 @@ ifconfig_pool="10.0.5.16 10.0.5.254 ${subnet_netmask}"
 server_private_ip="10.11.12.0"
 client_private_ip="10.11.12.1"
 
+client_cert_name="change_for_every_client"
+
 # this can be white public IPv4 address like 8.9.10.11
 server_public_ip="192.168.1.100"
 
