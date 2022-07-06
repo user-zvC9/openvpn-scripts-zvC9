@@ -36,11 +36,8 @@ dev-type tap
 #topology subnet
 topology subnet
 #ifconfig  $client_private_ip  $subnet_netmask
-## route ip mask gw
-## uncomment, if you want to route packets via server
-#route 0.0.0.0   0.0.0.0
-route-metric 34000
-route-nopull
+
+pull
 
 mssfix 1400
 ping 3
@@ -62,7 +59,15 @@ reneg-sec 60
 verify-x509-name ${netname}-tls-server name
 cipher AES-256-CBC
 tls-version-min 1.3
+
+## route ip mask gw
+## uncomment, if you want to route packets via server
+#route 0.0.0.0   0.0.0.0
+route-metric 34000
+route-nopull
 #route   0.0.0.0   0.0.0.0   $server_private_ip   5000
+route-gateway $server_private_ip
+route 0.0.0.0 0.0.0.0
 EOF
 
 popd
@@ -74,8 +79,8 @@ mkdir -p "created_files_for_use/server" || exit 3
 pushd    "created_files_for_use/server" || exit 4
 
 cat > "${netname}-tls-server.conf" << EOF
-#mode server
-mode p2p
+mode server
+#mode p2p
 #remote example.net 1194 udp
 ## if your interface has this address and you only listen on it (don't use if you are behind a router/gateway/NAT)
 # local $server_public_ip
@@ -92,8 +97,8 @@ topology subnet
 ifconfig  $server_private_ip ${subnet_netmask}
 ifconfig-pool $ifconfig_pool
 #ifconfig-pool 10.12.12.2 10.12.12.254 255.255.255.0
-#push "route-gateway 10.12.12.1"
-push "route-gateway dhcp"
+#push "route-gateway $server_private_ip"
+###push "route-gateway dhcp"
 mssfix 1400
 ping 3
 ping-restart 8
@@ -115,7 +120,7 @@ tls-timeout 10
 reneg-bytes 600485760
 reneg-sec 60
 # remote name
-verify-x509-name ${netname}-tls-client name
+#verify-x509-name ${netname}-tls-client name
 cipher AES-256-CBC
 #route   0.0.0.0   0.0.0.0   $client_private_ip   5000
 #route 0.0.0.0   0.0.0.0
