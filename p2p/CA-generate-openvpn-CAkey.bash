@@ -40,8 +40,8 @@ cp -fv "workdir/${netname}/${netname}-ca.selfsigned.cert.pem" "created_files_for
 
 
 # generate keys for use with --tls-auth
-openvpn --genkey "created_files_for_use/client/generated/${netname}"/tls-auth-c1-s0.key
-openvpn --genkey "created_files_for_use/client/generated/${netname}"/tls-auth-c0-s1.key
+openvpn --genkey --secret "created_files_for_use/client/generated/${netname}"/tls-auth-c1-s0.key
+openvpn --genkey --secret "created_files_for_use/client/generated/${netname}"/tls-auth-c0-s1.key
 cp "created_files_for_use/client/generated/${netname}"/tls-auth-c1-s0.key "created_files_for_use/server/generated/${netname}/"
 cp "created_files_for_use/client/generated/${netname}"/tls-auth-c0-s1.key "created_files_for_use/server/generated/${netname}"/
 
